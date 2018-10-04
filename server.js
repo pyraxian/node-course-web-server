@@ -9,7 +9,7 @@ const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
 
-const port = process.env.PORT || 3000; //dynamically assign port
+const port = process.env.PORT || 3000; //assign port
 
 var app = express();
 
