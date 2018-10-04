@@ -1,10 +1,17 @@
+/**
+ * @author Connor Neill
+ * @version 1.0
+ * October 4, 2018
+ */
+
+/* Required Modules */
 const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000; //dynamically assign port
 
-var app = express(); // unsure of what this does
+var app = express();
 
 // take the directory you want to use for all Handlebar partial files
 hbs.registerPartials(__dirname + '/views/partials');
@@ -44,10 +51,9 @@ hbs.registerHelper('screamIt', (text) => {
   return text.toUpperCase();
 });
 
-app.get('/', (request, response) => {
-  response.render('home.hbs', {
-    pageTitle: 'Home Page',
-    currYear: new Date().getFullYear(),
+app.get('/', (req, res) => {
+  res.render('home.hbs', {
+    pageTitle: 'Home',
     welcomeMessage: 'Welcome to Some Website.'
   });
 });
@@ -55,17 +61,23 @@ app.get('/', (request, response) => {
 // .get() retrieves page data from the server and loads it in the app
 // @param: First parameter is the page address
 // @param: Second parameter is any data to pass to our template
-app.get('/about', (request, response) => {
-  response.render('about.hbs', {
-    pageTitle: 'About Page',
-    currYear: new Date().getFullYear()
+app.get('/about', (req, res) => {
+  res.render('about.hbs', {
+    pageTitle: 'About'
   }); // render() renders any templates you have with your current view engine
+});
+
+// create new projects page
+app.get('/projects', (req, res) => {
+  res.render('projects.hbs', {
+    pageTitle: 'Projects'
+  });
 });
 
 // create route @/bad
 // send back json data with an error message property (whatever you like)
-app.get('/bad', (request, response) => {
-  response.send({
+app.get('/bad', (req, res) => {
+  res.send({
     errorMessage: 'Error fulfilling that request'
   });
 });
@@ -76,4 +88,4 @@ app.listen(port, () => { // Bind application to port on machine, 3000 is common 
   console.log(`Server is up on port ${port}`);
 });
 
-/* view app by running in terminal, then visiting localhost:3000/[page] in browser */
+/* view app by running in terminal, then visiting localhost:[port]/[page] in browser */
