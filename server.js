@@ -2,6 +2,8 @@ const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
 
+const port = process.env.PORT || 3000;
+
 var app = express(); // unsure of what this does
 
 // take the directory you want to use for all Handlebar partial files
@@ -70,8 +72,8 @@ app.get('/bad', (request, response) => {
 
 // @param: 3000 --> the port this server is active on
 // @ param: function --> Do something once server is up
-app.listen(3000, () => { // Bind application to port on machine, 3000 is common port
-  console.log('Server is up on port 3000');
+app.listen(port, () => { // Bind application to port on machine, 3000 is common port
+  console.log(`Server is up on port ${port}`);
 });
 
 /* view app by running in terminal, then visiting localhost:3000/[page] in browser */
